@@ -1,13 +1,11 @@
-# React Project Cock Game
+# Project Cock Game
 
 Rooster game that works in real time.
 
-## Installation
-
-Install react-app only
+## Languages
 
 ```bash
-npx creat-react-app
+HTML & CSS & JavaScript
 ```
 
 ## Contributing
