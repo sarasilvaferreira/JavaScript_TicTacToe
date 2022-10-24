@@ -1,4 +1,4 @@
-# Project Cock Game
+# Project Tic Tac Toe
 
 Rooster game that works in real time.
 
