@@ -4,9 +4,9 @@ const winningMessageTextElement = document.querySelector("[data-winning-message-
 const winningMessageElement = document.querySelector("[data-winning-message]");
 const restartButtom = document.querySelector("[data-restart-button");
 
-let isCircleTurn;
+let isCircleTime;
 
-const winningCominations = [
+const solutions = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -22,20 +22,20 @@ const startGame = () => {
         cell.classList.remove('circle');
         cell.classList.remove('x');
         cell.removeEventListener("click", handleClick);
-        cell.addEventListener("click", handleClick, { once: true});
+        cell.addEventListener("click", handleClick, { once: true });
     }
 
-    isCircleTurn = false;
+    isCircleTime = false;
 
     setBoardHoverClass();
     winningMessageElement.classList.remove("show-winning-message");
 };
 
 const endGame = (isDraw) => {
-    if(isDraw) {
+    if (isDraw) {
         winningMessageTextElement.innerText = 'Empate!';
     } else {
-        winningMessageTextElement.innerText = isCircleTurn ? 'O venceu!' : "X Venceu!";
+        winningMessageTextElement.innerText = isCircleTime ? 'O venceu!' : "X Venceu!";
     }
 
     winningMessageElement.classList.add("show-winning-message");
@@ -44,7 +44,7 @@ const endGame = (isDraw) => {
 
 
 const ckeckForWin = (currentPlayer) => {
-    return winningCominations.some((combination) => {
+    return solutions.some((combination) => {
         return combination.every((index) => {
             return cellElements[index].classList.contains(currentPlayer);
         });
@@ -52,7 +52,7 @@ const ckeckForWin = (currentPlayer) => {
 };
 
 const checkForDraw = () => {
-    return [ ... cellElements].every((cell) => {
+    return [...cellElements].every((cell) => {
         return cell.classList.contains('x') || cell.classList.contains('circle');
     })
 }
@@ -65,7 +65,7 @@ const setBoardHoverClass = () => {
     board.classList.remove('circle')
     board.classList.remove('x')
 
-    if (isCircleTurn) {
+    if (isCircleTime) {
         board.classList.add('circle');
     } else {
         board.classList.add('x');
@@ -73,7 +73,7 @@ const setBoardHoverClass = () => {
 }
 
 const swapTurns = () => {
-    isCircleTurn = !isCircleTurn;
+    isCircleTime = !isCircleTime;
 
     setBoardHoverClass();
 };
@@ -81,17 +81,17 @@ const swapTurns = () => {
 const handleClick = (e) => {
     // Colocar a marca (X ou circulo) 
     const cell = e.target;
-    const classToAdd = isCircleTurn ? 'circle' : 'x';
+    const classToAdd = isCircleTime ? 'circle' : 'x';
 
     placeMark(cell, classToAdd);
-    
+
     // Verificar por vitória
-    const isWin = ckeckForWin (classToAdd);
+    const isWin = ckeckForWin(classToAdd);
 
     const isDraw = checkForDraw();
 
     if (isWin) {
-       endGame(false)
+        endGame(false)
     } else if (isDraw) {
         // Verificar por empate
         endGame(true)
@@ -99,7 +99,7 @@ const handleClick = (e) => {
         // Mudar símbolo na próxima jogada
         swapTurns();
     }
-    
+
 }
 
 startGame();
